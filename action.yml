@@ -23,6 +23,9 @@ inputs:
   force:
     description: 'Allow overwriting existing version'
     required: false
+  debug:
+    description: 'Enable debug logging. On command failure, also dumps the BDY CLI log (~/.bdy/cli.log).'
+    required: false
 outputs:
   artifact_url:
     description: 'The URL of the published artifact'

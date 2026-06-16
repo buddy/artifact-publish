@@ -86,6 +86,7 @@ jobs:
 | `directory`  | Yes      | Path to the directory or file to publish                              |
 | `create`     | No       | Create artifact if it does not exist (`true`/`false`)                 |
 | `force`      | No       | Allow overwriting existing version (`true`/`false`)                   |
+| `debug`      | No       | Run the BDY CLI in DEBUG mode and dump `~/.bdy/cli.log` on failure    |
 
 ## Outputs
 
@@ -130,6 +131,23 @@ By default, this action automatically installs the latest BDY CLI from the produ
 ```
 
 See the [`buddy/setup`](https://github.com/buddy/setup) action for more options.
+
+## Debugging
+
+If a BDY CLI command fails, the action throws an error that includes the exit code, the command that was run, and its captured output.
+
+Enabling debug runs the BDY CLI in DEBUG mode, so it writes verbose logs to `~/.bdy/cli.log`, and on failure dumps that log (plus a stack trace) into the workflow output. Enable it in either of these ways:
+
+- **Per step** — set the `debug` input on this action:
+
+  ```yaml
+  - uses: buddy/artifact-publish@v1
+    with:
+      # ...
+      debug: true
+  ```
+
+- **Whole run** — enable [GitHub step debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging), either by ticking **Enable debug logging** in the "Re-run jobs" dialog or by setting the `ACTIONS_STEP_DEBUG` repository secret/variable to `true`.
 
 ## License
 
